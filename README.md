@@ -9,9 +9,7 @@
 |first_name_kanji  |string |null: false              |
 |family_name_kana  |string |null: false              |
 |first_name_kana   |string |null: false              |
-|birth_year_id     |integer|null: false              |
-|birth_month_id    |integer|null: false              |
-|birth_day_id      |integer|null: false              |
+|birthday          |date   |null: false              |
 
 ### Association
 
