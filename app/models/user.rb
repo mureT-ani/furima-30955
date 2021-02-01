@@ -8,4 +8,9 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i.freeze
   validates :password, format: { with: VALID_PASSWORD_REGEX }
+  validates :family_name_kanji, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :first_name_kanji, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :family_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
+  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
+  validates :birthday, presence: true
 end
