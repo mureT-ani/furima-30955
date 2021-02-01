@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
   validates :email, uniqueness: true
-  VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
+  VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i.freeze
   validates :password, format: { with: VALID_PASSWORD_REGEX }
-
 end
