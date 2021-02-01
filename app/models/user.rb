@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
   validates :email, uniqueness: true
-  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates :password, format: { with: VALID_PASSWORD_REGEX }
   validates :family_name_kanji, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
   validates :first_name_kanji, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
