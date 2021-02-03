@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
     before do
       @user = FactoryBot.build(:user)
     end
-  
+
     context '登録できる場合' do
       it 'ニックネーム、メールアドレス、パスワード、パスワード（確認用）、ユーザー本名、ユーザー本名のフリガナ、生年月日が存在すれば登録できること' do
         expect(@user).to be_valid
@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
       it 'メールアドレスに＠がないと登録できないこと' do
         @user.email = 'emailaddress'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it 'すでに登録されているメールアドレスでは登録できないこと' do
         @user.save
