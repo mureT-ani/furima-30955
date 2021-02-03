@@ -8,4 +8,19 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :explanation
+    validates :price,　numericality: { greater_than: 299, less_than: 10000000}, format: { with: /\A[0-9]+\z/ }
+    validates :user_id
+    with_options numericality: { other_than: 1 } do
+      validates :area_id
+      validates :category_id
+      validates :days_id
+      validates :fee_id
+      validates :status_id
+    end
+  end
 end
