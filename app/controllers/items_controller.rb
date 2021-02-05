@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit]
-  before_action :seller_check, only: :edit
+  before_action :seller_check, only: %i[edit destroy]
   before_action :set_item, only: %i[show edit update destroy]
 
   def index
