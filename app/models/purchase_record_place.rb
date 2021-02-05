@@ -13,7 +13,7 @@ class PurchaseRecordPlace
   def save
     item = Item.find(params[:id])
     purchase_record = PurchaseRecord.create(user_id: current_user.id, item_id: item.id)
-    Place.create(postal_number: postal_number, prefecture_id: prefecture_id, city: city, house_number: house_number, building_number: building_number, phone_number: phone_number, purchase_record_id: purchase_record.id)
+    Place.create(postal_number: postal_number, prefecture_id: prefecture_id, city: city, house_number: house_number, building_name: building_name, phone_number: phone_number, purchase_record_id: purchase_record.id)
   end
 
 end
