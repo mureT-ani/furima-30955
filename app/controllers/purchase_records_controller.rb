@@ -1,4 +1,8 @@
 class PurchaseRecordsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :not_seller_check
+
+
   def index
     @purchase_record_place = PurchaseRecordPlace.new
     @item = Item.find(params[:item_id])
@@ -16,6 +20,12 @@ class PurchaseRecordsController < ApplicationController
   end
 
   private
+
+  def not_seller_check
+    item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == item.user_id
+  end
+
 
   def purchase_params
     params.require(:purchase_record_place).permit(:postal_number, :area_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: @item.id)
