@@ -1,15 +1,15 @@
 class PurchaseRecordsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create, :not_seller_check, :sold_check]
   before_action :not_seller_check
+  before_action :sold_check
 
 
   def index
     @purchase_record_place = PurchaseRecordPlace.new
-    @item = Item.find(params[:item_id])
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_record_place = PurchaseRecordPlace.new(purchase_params)
     if @purchase_record_place.valid?
       pay_item
@@ -22,9 +22,16 @@ class PurchaseRecordsController < ApplicationController
 
   private
 
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
   def not_seller_check
-    item = Item.find(params[:item_id])
-    redirect_to root_path if current_user.id == item.user_id
+    redirect_to root_path if current_user.id == @item.user_id
+  end
+
+  def sold_check
+    redirect_to root_path if PurchaseRecord.find_by(item_id: @item.id)
   end
 
   def purchase_params

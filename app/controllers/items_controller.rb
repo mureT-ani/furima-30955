@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit]
+  before_action :set_item, only: %i[show edit update destroy seller_check sold_check]
   before_action :seller_check, only: %i[edit destroy]
-  before_action :set_item, only: %i[show edit update destroy]
+  before_action :sold_check, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.order(id: 'DESC')
@@ -43,17 +44,21 @@ class ItemsController < ApplicationController
 
   private
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
   def item_params
     params.require(:item).permit(:name, :explanation, :category_id, :status_id, :fee_id, :area_id, :days_id, :price,
                                  :image).merge(user_id: current_user.id)
   end
 
   def seller_check
-    item = Item.find(params[:id])
-    redirect_to root_path if current_user.id != item.user_id
+    redirect_to root_path if current_user.id != @item.user_id
   end
 
-  def set_item
-    @item = Item.find(params[:id])
+  def sold_check
+    redirect_to root_path if PurchaseRecord.find_by(item_id: @item.id)
   end
+
 end
