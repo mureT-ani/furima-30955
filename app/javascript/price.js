@@ -1,4 +1,4 @@
-function post (){
+function price (){
   const itemPrice = document.getElementById("item-price");
   const addTaxPrice = document.getElementById("add-tax-price");
   const profit = document.getElementById("profit");
@@ -8,4 +8,4 @@ function post (){
     profit.innerHTML = inputValue - Math.floor(0.1*inputValue)
   })
 }
-window.addEventListener('load', post)
+window.addEventListener('load', price)
