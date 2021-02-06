@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :status
   belongs_to :user
   has_one    :purchase_record
-  
+
   has_one_attached :image
 
   with_options presence: true do

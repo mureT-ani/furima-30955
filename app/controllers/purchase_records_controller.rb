@@ -1,9 +1,8 @@
 class PurchaseRecordsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_item, only: [:index, :create, :not_seller_check, :sold_check]
+  before_action :set_item, only: %i[index create not_seller_check sold_check]
   before_action :not_seller_check
   before_action :sold_check
-
 
   def index
     @purchase_record_place = PurchaseRecordPlace.new
@@ -35,11 +34,13 @@ class PurchaseRecordsController < ApplicationController
   end
 
   def purchase_params
-    params.require(:purchase_record_place).permit(:postal_number, :area_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+    params.require(:purchase_record_place).permit(:postal_number, :area_id, :city, :house_number, :building_name, :phone_number).merge(
+      user_id: current_user.id, item_id: @item.id, token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_params[:token],

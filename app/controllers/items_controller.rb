@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit]
   before_action :set_item, only: %i[show edit update destroy seller_check sold_check]
   before_action :seller_check, only: %i[edit destroy]
-  before_action :sold_check, only: [:edit, :update, :destroy]
+  before_action :sold_check, only: %i[edit update destroy]
 
   def index
     @items = Item.all.order(id: 'DESC')
@@ -60,5 +60,4 @@ class ItemsController < ApplicationController
   def sold_check
     redirect_to root_path if PurchaseRecord.find_by(item_id: @item.id)
   end
-
 end
