@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe PurchaseRecordPlace, type: :model do
   describe '商品購入' do
     before do
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
       @purchase_record_place = FactoryBot.build(:purchase_record_place)
+      @purchase_record_place.user_id = @user.id
+      @purchase_record_place.item_id = @item.id
+      sleep 0.1
     end
 
     context '購入できる場合' do
