@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_203_060_323) do
+ActiveRecord::Schema.define(version: 20_210_205_062_513) do
   create_table 'active_storage_attachments', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'record_type', null: false
@@ -43,6 +43,25 @@ ActiveRecord::Schema.define(version: 20_210_203_060_323) do
     t.integer 'days_id', null: false
     t.integer 'price', null: false
     t.integer 'user_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'places', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
+    t.string 'postal_number', null: false
+    t.integer 'area_id', null: false
+    t.string 'city', null: false
+    t.string 'house_number', null: false
+    t.string 'building_name'
+    t.string 'phone_number', null: false
+    t.integer 'purchase_record_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'purchase_records', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'item_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
